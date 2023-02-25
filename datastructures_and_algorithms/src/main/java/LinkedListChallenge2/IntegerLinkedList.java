@@ -16,7 +16,6 @@ public class IntegerLinkedList {
         if (isEmpty()) {
             return null;
         }
-
         IntegerNode removedNode = head;
         head = head.getNext();
         size--;
@@ -25,9 +24,22 @@ public class IntegerLinkedList {
     }
 
     public void insertSorted(Integer value) {
-
-
-
+        // if the list is empty or the head is greater than input value, insert value at front
+        if (isEmpty() || head.getValue() > value) {
+            addToFront(value);
+        }
+        // if not, iterate list while value bigger than next element, then insert value in list
+        else {
+            IntegerNode iterator = head;
+            while (iterator.getNext() != null && value > iterator.getNext().getValue()) {
+                iterator = iterator.getNext();
+            }
+            IntegerNode newNode = new IntegerNode(value);
+            if (iterator.getNext() != null) {
+                newNode.setNext(iterator.getNext());
+            }
+            iterator.setNext(newNode);
+        }
     }
 
     public int getSize() {
